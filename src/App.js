@@ -4,6 +4,7 @@ import Listbox from './Listbox';
 import Detail from './Detail';
 import { Credentials } from './Credentials';
 import axios from 'axios';
+import Home from './pages/Home'
 
 const App = () => {
 
@@ -112,12 +113,14 @@ const App = () => {
   
 
   return (
-    <div className="container mt-[50px] ml-[50px]">
+    <div>
+      <Home/>
+      {/* <div className="container mt-[50px] ml-[50px]">
       <form onSubmit={buttonClicked}>        
           <Dropdown label="Genre :" options={genres.listOfGenresFromAPI} selectedValue={genres.selectedGenre} changed={genreChanged} />
           <Dropdown label="Playlist :" options={playlist.listOfPlaylistFromAPI} selectedValue={playlist.selectedPlaylist} changed={playlistChanged} />
           <div className="col-sm-6 row form-group px-0">
-            <button type='submit' className="btn btn-success col-sm-12">
+            <button type='submit' className="btn btn-success col-sm-12 pl-1 pr-1">
               Search
             </button>
           </div>
@@ -125,10 +128,9 @@ const App = () => {
             <Listbox items={tracks.listOfTracksFromAPI} clicked={listboxClicked} />
             {trackDetail && <Detail {...trackDetail} /> }
           </div>        
-      </form>
+        </form>
+      </div> */}
     </div>
-    
-    
   );
 }
 
