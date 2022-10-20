@@ -4,13 +4,13 @@ import logo from '../img/spotify-logo.png'
 
 const Navbar = () => {
     return(
-        <div className="bg-black pt-[10px] pb-[10px]">
-            <div className="flex items-center gap-[60px] ml-[50px] mr-[50px]">
-                <img src={logo} className="w-[60px] h-[60px]"/>
-                <p className="text-white ml-auto"><a href="/">HOME</a></p>
-                <p className="text-white"><a href="/about">ABOUT</a></p>
-                <p className="text-white"><a href="/contact">CONTACT US</a></p>
-                <FiMenu color="white" className="w-[50px] h-[50px]"/>
+        <div className="bg-black py-[0.781vw]">
+            <div className="flex items-center gap-[4.668vw] mx-[3.906vw]">
+                <img src={logo} className="w-[4.668vw] h-[4.668vw]"/>
+                <p className="text-white text-[1.875vw] ml-auto"><a href="/">HOME</a></p>
+                <p className="text-white text-[1.875vw]"><a href="/about">ABOUT</a></p>
+                <p className="text-white text-[1.875vw]"><a href="/contact">CONTACT US</a></p>
+                <FiMenu color="white" className="w-[3.906vw] h-[3.906vw]"/>
             </div>
         </div>
     )
