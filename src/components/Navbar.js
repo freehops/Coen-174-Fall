@@ -1,18 +1,19 @@
 import React from 'react'
 import {FiMenu} from 'react-icons/fi'
 import logo from '../img/spotify-logo.png'
+import {Link} from 'react-router-dom'
 
 const Navbar = () => {
     return(
-        <div className="bg-black py-[0.781vw]">
-            <div className="flex items-center gap-[4.668vw] mx-[3.906vw]">
-                <img src={logo} className="w-[4.668vw] h-[4.668vw]"/>
-                <p className="text-white text-[1.875vw] ml-auto"><a href="/">HOME</a></p>
-                <p className="text-white text-[1.875vw]"><a href="/about">ABOUT</a></p>
-                <p className="text-white text-[1.875vw]"><a href="/contact">CONTACT US</a></p>
+        <nav className="bg-black py-[0.781vw]">
+            <ul className="flex items-center gap-[4.668vw] mx-[3.906vw]">
+                <img src={logo} alt="Spotify logo" className="w-[4.668vw] h-[4.668vw]"/>
+                <li className="text-white text-[1.875vw] ml-auto"><Link to="/">HOME</Link></li>
+                <li className="text-white text-[1.875vw]"><Link to="/about">ABOUT</Link></li>
+                <li className="text-white text-[1.875vw]"><Link to="/contact">CONTACT US</Link></li>
                 <FiMenu color="white" className="w-[3.906vw] h-[3.906vw]"/>
-            </div>
-        </div>
+            </ul>
+        </nav>
     )
 }
 
