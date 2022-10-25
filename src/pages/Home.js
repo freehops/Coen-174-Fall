@@ -34,7 +34,7 @@ const Home = () => {
                     <input className="border-2 border-gray-400 mb-[1.563vw] text-[1.875vw]" type="text"></input>
                     <label className="text-[1.875vw]">Email</label>
                     <input className="border-2 border-gray-400 mb-[1.563vw] text-[1.875vw]" type="email"></input>
-                    <label className="text-[1.875vw]">Name</label>
+                    <label className="text-[1.875vw]">Message</label>
                     <textarea className="border-2 border-gray-400 text-[1.875vw]" rows="5" id="text"></textarea>
                     <div className="flex justify-center mt-[2.5vw]">
                         <button className="bg-black text-[2.118vw] px-[3.125vw] p-[0.313vw] rounded-lg text-white">Submit</button>
