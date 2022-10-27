@@ -3,7 +3,12 @@ import Navbar from '../components/Navbar'
 import boygirl from '../img/pexels-ron-lach-9654034.jpg'
 import phone from '../img/pexels-cottonbro-5077407.jpg'
 import manwoman from '../img/pexels-pavel-danilyuk-8001234.jpg'
-import {Link} from 'react-router-dom'
+import {Credentials} from "../Credentials"
+
+const REDIRECT_URI = "https://freehops.github.io/Coen-174-Fall/playlist"
+const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
+const RESPONSE_TYPE = "token"
+const spotify = Credentials()
 
 const Home = () => {
     return(
@@ -13,7 +18,9 @@ const Home = () => {
                 <h1 className="text-center text-[4.375vw] font-bold mb-[1.563vw]">Welcome to the Spotify Pact</h1>
                 <p className="text-center text-[1.875vw]">Making connections with others through music you love</p>
                 <div className="flex justify-center mt-[4.668vw]">
-                    <button className="bg-black text-[2.118vw] px-[3.125vw] p-[0.313vw] rounded-lg text-white"><Link to="/playlist">Start!</Link></button>
+                    <button className="bg-black text-[2.118vw] px-[3.125vw] p-[0.313vw] rounded-lg text-white">
+                    <a href={`${AUTH_ENDPOINT}?client_id=${spotify.ClientId}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Start!</a>
+                    </button>
                 </div>
             </div>
             <div className="py-[3.906vw] mx-[3.906vw]">
