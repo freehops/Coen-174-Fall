@@ -1,16 +1,17 @@
 {
   "files": {
-    "main.css": "/Coen-174-Fall/static/css/main.073c9b0a.css",
-    "main.js": "/Coen-174-Fall/static/js/main.81db7d4a.js",
-    "static/js/787.ec29d861.chunk.js": "/Coen-174-Fall/static/js/787.ec29d861.chunk.js",
-    "static/media/logo.svg": "/Coen-174-Fall/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "main.css": "/Coen-174-Fall/static/css/main.617cdb85.css",
+    "main.js": "/Coen-174-Fall/static/js/main.f054322f.js",
+    "static/media/pexels-pavel-danilyuk-8001234.jpg": "/Coen-174-Fall/static/media/pexels-pavel-danilyuk-8001234.ffd037150911aeeb5abc.jpg",
+    "static/media/pexels-cottonbro-5077407.jpg": "/Coen-174-Fall/static/media/pexels-cottonbro-5077407.d2fdf401fd4d25ff69bc.jpg",
+    "static/media/pexels-ron-lach-9654034.jpg": "/Coen-174-Fall/static/media/pexels-ron-lach-9654034.f36f8fdf487347410d8b.jpg",
+    "static/media/spotify-logo.png": "/Coen-174-Fall/static/media/spotify-logo.25cd5b2ac10901943b93.png",
     "index.html": "/Coen-174-Fall/index.html",
-    "main.073c9b0a.css.map": "/Coen-174-Fall/static/css/main.073c9b0a.css.map",
-    "main.81db7d4a.js.map": "/Coen-174-Fall/static/js/main.81db7d4a.js.map",
-    "787.ec29d861.chunk.js.map": "/Coen-174-Fall/static/js/787.ec29d861.chunk.js.map"
+    "main.617cdb85.css.map": "/Coen-174-Fall/static/css/main.617cdb85.css.map",
+    "main.f054322f.js.map": "/Coen-174-Fall/static/js/main.f054322f.js.map"
   },
   "entrypoints": [
-    "static/css/main.073c9b0a.css",
-    "static/js/main.81db7d4a.js"
+    "static/css/main.617cdb85.css",
+    "static/js/main.f054322f.js"
   ]
 }
