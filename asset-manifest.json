@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/Coen-174-Fall/static/css/main.617cdb85.css",
-    "main.js": "/Coen-174-Fall/static/js/main.83a8a2bb.js",
+    "main.js": "/Coen-174-Fall/static/js/main.f054322f.js",
     "static/media/pexels-pavel-danilyuk-8001234.jpg": "/Coen-174-Fall/static/media/pexels-pavel-danilyuk-8001234.ffd037150911aeeb5abc.jpg",
     "static/media/pexels-cottonbro-5077407.jpg": "/Coen-174-Fall/static/media/pexels-cottonbro-5077407.d2fdf401fd4d25ff69bc.jpg",
     "static/media/pexels-ron-lach-9654034.jpg": "/Coen-174-Fall/static/media/pexels-ron-lach-9654034.f36f8fdf487347410d8b.jpg",
     "static/media/spotify-logo.png": "/Coen-174-Fall/static/media/spotify-logo.25cd5b2ac10901943b93.png",
     "index.html": "/Coen-174-Fall/index.html",
     "main.617cdb85.css.map": "/Coen-174-Fall/static/css/main.617cdb85.css.map",
-    "main.83a8a2bb.js.map": "/Coen-174-Fall/static/js/main.83a8a2bb.js.map"
+    "main.f054322f.js.map": "/Coen-174-Fall/static/js/main.f054322f.js.map"
   },
   "entrypoints": [
     "static/css/main.617cdb85.css",
-    "static/js/main.83a8a2bb.js"
+    "static/js/main.f054322f.js"
   ]
 }
