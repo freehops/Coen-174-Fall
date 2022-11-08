@@ -5,7 +5,7 @@ import phone from '../img/pexels-cottonbro-5077407.jpg'
 import manwoman from '../img/pexels-pavel-danilyuk-8001234.jpg'
 import {Credentials} from "../Credentials"
 
-const REDIRECT_URI = "https://freehops.github.io/Coen-174-Fall/playlist"
+const REDIRECT_URI = "https://freehops.github.io/Coen-174-Fall/"
 const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
 const RESPONSE_TYPE = "token"
 const spotify = Credentials()
