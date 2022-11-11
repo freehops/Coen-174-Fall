@@ -111,10 +111,13 @@ const Playlist = () => {
         <div className="">
             <Navbar/>
             <div className="bg-black bg-opacity-90 py-[3.906vw] px-[3.906vw]">
-                <h1 className="text-white text-[4.375vw] font-bold mb-[1.563vw]">Time to Submit Your Playlist</h1>
-                <button className="bg-white text-[2.118vw] px-[3.125vw] p-[0.313vw] rounded-lg text-black">Submit</button>
+              <h1 className="text-white text-[4.375vw] font-bold mb-[1.563vw]">Time to Submit Your Playlist</h1>
+              <div className="flex items-center gap-10">
+              <Dropdown options={playlist.listOfPlaylistFromAPI} selectedValue={playlist.selectedPlaylist} changed={playlistChanged} option="Choose a playlist"/> 
+                <button className="bg-white text-[2.118vw] px-[3.125vw] p-[0.313vw] rounded-lg text-black" type="submit">Submit</button>
+              </div>
             </div>
-            <div className="container mt-[50px] ml-[50px]">
+            {/* <div className="container mt-[50px] ml-[50px]">
         <form onSubmit={buttonClicked}>        
             <Dropdown label="Genre :" options={genres.listOfGenresFromAPI} selectedValue={genres.selectedGenre} changed={genreChanged} />
             <Dropdown label="Playlist :" options={playlist.listOfPlaylistFromAPI} selectedValue={playlist.selectedPlaylist} changed={playlistChanged} />
@@ -128,7 +131,7 @@ const Playlist = () => {
               {trackDetail && <Detail {...trackDetail} /> }
             </div>        
           </form>
-        </div> 
+        </div>  */}
         </div>
     )
 }
