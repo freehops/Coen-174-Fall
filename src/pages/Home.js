@@ -1,16 +1,34 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import Navbar from '../components/Navbar'
 import boygirl from '../img/pexels-ron-lach-9654034.jpg'
 import phone from '../img/pexels-cottonbro-5077407.jpg'
 import manwoman from '../img/pexels-pavel-danilyuk-8001234.jpg'
 import {Credentials} from "../Credentials"
-
-const REDIRECT_URI = "http://localhost:3000/playlist"
-const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
-const RESPONSE_TYPE = "token"
-const spotify = Credentials()
+import {Link} from 'react-router-dom'
 
 const Home = () => {
+
+    const REDIRECT_URI = "http://localhost:3000/playlist"
+    const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
+    const RESPONSE_TYPE = "token"
+    const spotify = Credentials()
+
+    const [token, setToken] = useState("")
+
+    useEffect(() => {
+        const hash = window.location.hash
+        let token = window.localStorage.getItem("token")
+
+        if (!token && hash) {
+            token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1]
+
+            window.location.hash = ""
+            window.localStorage.setItem("token", token)
+        }
+
+        setToken(token)
+    }, [])
+
     return(
         <div className="">
             <Navbar/>
@@ -19,7 +37,9 @@ const Home = () => {
                 <p className="text-center text-[1.875vw]">Making connections with others through music you love</p>
                 <div className="flex justify-center mt-[4.668vw]">
                     <button className="bg-black text-[2.118vw] px-[3.125vw] p-[0.313vw] rounded-lg text-white">
-                    <a href={`${AUTH_ENDPOINT}?client_id=${spotify.ClientId}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Start!</a>
+                        {!token ?
+                            <a href={`${AUTH_ENDPOINT}?client_id=${spotify.ClientId}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Start!</a>
+                            : <Link to="/playlist">Start!</Link>}
                     </button>
                 </div>
             </div>
