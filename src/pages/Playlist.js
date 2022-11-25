@@ -91,7 +91,7 @@ const Playlist = () => {
         },
         params: {
           seed_artists: "4NHQUGzhtTLFvgF5SZesLK", //array of up to 5 seed artist ids
-          seed_genres: "hip-hop", //array of up to 5 seed genre names
+          seed_genres: "hip-hop, pop", //array of up to 5 seed genre names
           seed_tracks: "0c6xIDDpzE81m2q797ordA", //array of up to 5 seed track ids
         }
       })
