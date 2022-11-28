@@ -124,8 +124,10 @@ const Playlist = () => {
             </div>
             {isPending && <div>Loading...</div> }
             {!isPending && cover && <img src={cover.data[0].url} alt="Playlist Cover" />}
+            <h1 className="text-[30px]">List of Recommended Songs</h1>
             {recommendations.data && recommendations.data.tracks.map((rec) => (
-              <div key={idx++}>
+              <div className="flex items-center mb-5" key={idx++}>
+                <img src={rec.album.images[0].url} className="w-[100px] h-[100px]" />
                 <p>{rec.name} by {rec.artists[0].name}</p>
               </div>
             ))}
