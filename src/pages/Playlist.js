@@ -16,6 +16,7 @@ const Playlist = () => {
     const [tracks, setTracks] = useState([])
     const [recommendations, setRecommendations] = useState([])
     const [isPending, setIsPending] = useState(false)
+    const [playlistOutput, setPlaylistOutput] = useState("")
 
     useEffect(() => {
       const hash = window.location.hash
@@ -73,6 +74,14 @@ const Playlist = () => {
         setTracks(trackResponse)
       });
 
+      if(playlists.listOfPlaylists){
+        for(let i = 0; i < playlists.listOfPlaylists.length; i++){
+          if(playlists.listOfPlaylists[i].id === playlists.selectedPlaylist){
+            setPlaylistOutput(playlists.listOfPlaylists[i].name)
+          }
+        }
+      }
+
       let seedArtists = []
       let seedTracks = []
 
@@ -94,7 +103,7 @@ const Playlist = () => {
         },
         params: {
           seed_artists: seedArtists, //array of up to 5 seed artist ids
-          seed_genres: "hip-hop, pop", //array of up to 5 seed genre names
+          seed_genres: "hip-hop, pop", //array of up to 5 seed genre names. still need to figure out getting playlist genres
           seed_tracks: seedTracks, //array of up to 5 seed track ids
         }
       })
@@ -107,6 +116,7 @@ const Playlist = () => {
 
     }
     let idx=0;
+
 
     return(
         <div className="">
@@ -124,7 +134,8 @@ const Playlist = () => {
             </div>
             {isPending && <div>Loading...</div> }
             {!isPending && cover && <img src={cover.data[0].url} alt="Playlist Cover" />}
-            <h1 className="text-[30px]">List of Recommended Songs</h1>
+            {!isPending && cover && <p>{playlistOutput}</p>}
+            {recommendations.data && <h1 className="text-[30px]">List of Recommended Songs</h1>}
             {recommendations.data && recommendations.data.tracks.map((rec) => (
               <div className="flex items-center mb-5" key={idx++}>
                 <img src={rec.album.images[0].url} className="w-[100px] h-[100px]" />
