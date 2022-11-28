@@ -15,6 +15,7 @@ const Playlist = () => {
     const [cover, setCover] = useState("")
     const [tracks, setTracks] = useState([])
     const [recommendations, setRecommendations] = useState([])
+    const [isPending, setIsPending] = useState(false)
 
     useEffect(() => {
       const hash = window.location.hash
@@ -38,6 +39,7 @@ const Playlist = () => {
             listOfPlaylists: playlistResponse.data.items
           })
         });
+      
     }, [playlists.selectedPlaylist, spotify.ClientId, spotify.ClientSecret])
 
     const playlistChanged = val => {
@@ -49,6 +51,7 @@ const Playlist = () => {
     
     const buttonClicked = e => {
       e.preventDefault();
+      setIsPending(true)
   
       axios(`https://api.spotify.com/v1/playlists/${playlists.selectedPlaylist}/images`, {
         method: 'GET',
@@ -70,6 +73,20 @@ const Playlist = () => {
         setTracks(trackResponse)
       });
 
+      let seedArtists = []
+      let seedTracks = []
+
+      if(tracks.data){
+        
+        for(let i = 0; i < 5; i++){
+          seedArtists[i] = tracks.data.items[i].track.artists[0].id
+        }
+
+        for(let i = 0; i < 5; i++){
+          seedTracks[i] = tracks.data.items[i].track.id
+        }
+      }
+
       //track ids
       // for(let i = 0; i < tracks.data.items.length; i++){
       //   console.log(tracks.data.items[i].track.id)
@@ -90,18 +107,20 @@ const Playlist = () => {
           'Authorization' : 'Bearer ' + token
         },
         params: {
-          seed_artists: "4NHQUGzhtTLFvgF5SZesLK", //array of up to 5 seed artist ids
+          seed_artists: seedArtists, //array of up to 5 seed artist ids
           seed_genres: "hip-hop, pop", //array of up to 5 seed genre names
-          seed_tracks: "0c6xIDDpzE81m2q797ordA", //array of up to 5 seed track ids
+          seed_tracks: seedTracks, //array of up to 5 seed track ids
         }
       })
       .then(recResponse => {
         setRecommendations(recResponse)
+        setIsPending(false)
       });
 
-      console.log(recommendations)
+      recommendations.data && console.log(recommendations.data.tracks)
 
     }
+    let idx=0;
 
     return(
         <div className="">
@@ -117,8 +136,14 @@ const Playlist = () => {
                 <button className="bg-white text-[2.118vw] px-[3.125vw] p-[0.313vw] rounded-lg text-black" type={"submit"}>Submit</button>
               </form>
             </div>
-            {cover ?
-            <img src={cover.data[0].url} alt="Playlist Cover" /> : null}
+            {isPending && <div>Loading...</div> }
+            {!isPending && cover && <img src={cover.data[0].url} alt="Playlist Cover" />}
+            {recommendations.data && recommendations.data.tracks.map((rec) => (
+              <div key={idx++}>
+                <p>{rec.name}</p>
+              </div>
+            ))}
+            {/* <p>{!isPending && recommendations.data && recommendations.data.tracks[0].name}</p> */}
       </div>
     )
 }
