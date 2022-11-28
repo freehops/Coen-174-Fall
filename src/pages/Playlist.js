@@ -79,27 +79,13 @@ const Playlist = () => {
       if(tracks.data){
         
         for(let i = 0; i < 5; i++){
-          seedArtists[i] = tracks.data.items[i].track.artists[0].id
+          seedArtists[i] = tracks.data.items[i].track.artists[0].id //need to make these random
         }
 
         for(let i = 0; i < 5; i++){
-          seedTracks[i] = tracks.data.items[i].track.id
+          seedTracks[i] = tracks.data.items[i].track.id //need to make these random
         }
       }
-
-      //track ids
-      // for(let i = 0; i < tracks.data.items.length; i++){
-      //   console.log(tracks.data.items[i].track.id)
-      // }
-
-      // artist ids
-      // console.log(tracks.data.items[0].track.artists[0].id)
-      
-      // for(let i = 0; i < tracks.data.items.length; i++){
-      //   for(let j = 0; j < tracks.data.items[i].track.artists.length; j++){
-      //     console.log(tracks.data.items[i].track.artists[j].name)
-      //   }
-      // }
 
       axios('https://api.spotify.com/v1/recommendations', {
         method: 'GET',
@@ -140,10 +126,9 @@ const Playlist = () => {
             {!isPending && cover && <img src={cover.data[0].url} alt="Playlist Cover" />}
             {recommendations.data && recommendations.data.tracks.map((rec) => (
               <div key={idx++}>
-                <p>{rec.name}</p>
+                <p>{rec.name} by {rec.artists[0].name}</p>
               </div>
             ))}
-            {/* <p>{!isPending && recommendations.data && recommendations.data.tracks[0].name}</p> */}
       </div>
     )
 }
