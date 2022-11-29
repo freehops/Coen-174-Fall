@@ -16,6 +16,7 @@ const Playlist = () => {
     const [coverPending, setCoverPending] = useState(false)
     const [recPending, setRecPending] = useState(false)
     const [playlistOutput, setPlaylistOutput] = useState("")
+    const [artist, setArtist] = useState("")
 
     useEffect(() => {
       const hash = window.location.hash
@@ -48,10 +49,25 @@ const Playlist = () => {
         listOfPlaylists: playlists.listOfPlaylists
       });
     }
+
+    let seedArtists = []
+    let seedTracks = []
+
+    if(tracks.data){
+        
+      for(let i = 0; i < 5; i++){
+        seedArtists[i] = tracks.data.items[i].track.artists[0].id //need to make these random
+      }
+
+      for(let i = 0; i < 5; i++){
+        seedTracks[i] = tracks.data.items[i].track.id //need to make these random
+      }
+    }
     
     const buttonClicked = e => {
       e.preventDefault();
       setCoverPending(true)
+      setRecommendations("")
   
       axios(`https://api.spotify.com/v1/playlists/${playlists.selectedPlaylist}/images`, {
         method: 'GET',
@@ -72,63 +88,6 @@ const Playlist = () => {
         }
       }
 
-      // axios(`https://api.spotify.com/v1/playlists/${playlists.selectedPlaylist}/tracks`, {
-      //   method: 'GET',
-      //   headers: {
-      //     'Authorization' : 'Bearer ' + token
-      //   }
-      // })
-      // .then(trackResponse => {
-      //   setTracks(trackResponse)
-      // });
-
-      // if(playlists.listOfPlaylists){
-      //   for(let i = 0; i < playlists.listOfPlaylists.length; i++){
-      //     if(playlists.listOfPlaylists[i].id === playlists.selectedPlaylist){
-      //       setPlaylistOutput(playlists.listOfPlaylists[i].name)
-      //     }
-      //   }
-      // }
-
-      // let seedArtists = []
-      // let seedTracks = []
-
-      // if(tracks.data){
-        
-      //   for(let i = 0; i < 5; i++){
-      //     seedArtists[i] = tracks.data.items[i].track.artists[0].id //need to make these random
-      //   }
-
-      //   for(let i = 0; i < 5; i++){
-      //     seedTracks[i] = tracks.data.items[i].track.id //need to make these random
-      //   }
-      // }
-
-      // axios('https://api.spotify.com/v1/recommendations', {
-      //   method: 'GET',
-      //   headers: {
-      //     'Authorization' : 'Bearer ' + token
-      //   },
-      //   params: {
-      //     seed_artists: seedArtists, //array of up to 5 seed artist ids
-      //     // seed_genres: "hip-hop, pop", //array of up to 5 seed genre names. still need to figure out getting playlist genres
-      //     seed_genres: "hip-hop",
-      //     seed_tracks: seedTracks, //array of up to 5 seed track ids
-      //   }
-      // })
-      // .then(recResponse => {
-      //   setRecommendations(recResponse)
-      //   setIsPending(false)
-      // });
-
-      // recommendations.data && console.log(recommendations.data.tracks)
-
-    }
-
-    const btnClicked = e => {
-      e.preventDefault()
-      setRecPending(true)
-
       axios(`https://api.spotify.com/v1/playlists/${playlists.selectedPlaylist}/tracks`, {
         method: 'GET',
         headers: {
@@ -139,19 +98,25 @@ const Playlist = () => {
         setTracks(trackResponse)
       });
 
-      let seedArtists = []
-      let seedTracks = []
+      console.log(seedArtists)
 
-      if(tracks.data){
-        
-        for(let i = 0; i < 5; i++){
-          seedArtists[i] = tracks.data.items[i].track.artists[0].id //need to make these random
-        }
-
-        for(let i = 0; i < 5; i++){
-          seedTracks[i] = tracks.data.items[i].track.id //need to make these random
-        }
+      if(seedArtists){
+        axios(`https://api.spotify.com/v1/artists/${seedArtists[0]}`, {
+          method: 'GET',
+          headers: {
+            'Authorization' : 'Bearer ' + token
+          }
+        })
+        .then(artistResponse => {
+          setArtist(artistResponse)
+        });
+        console.log(artist.data.genres)
       }
+    }
+
+    const btnClicked = e => {
+      e.preventDefault()
+      setRecPending(true)
 
       axios('https://api.spotify.com/v1/recommendations', {
         method: 'GET',
@@ -170,10 +135,10 @@ const Playlist = () => {
         setRecPending(false)
       });
 
-      recommendations.data && console.log(recommendations.data.tracks)
+      // recommendations.data && console.log(recommendations.data.tracks)
     }
-    let idx=0;
 
+    let idx=0;
 
     return(
         <div className="">
@@ -190,19 +155,21 @@ const Playlist = () => {
               </form>
             </div>
             <div className="max-w-[80%] mx-auto my-5 flex">
-              <div>
+              <div className="">
                 {coverPending && <div>Loading...</div> }
                 {!coverPending && cover && <img src={cover.data[0].url} alt="Playlist Cover" />}
                 {!coverPending && cover && <p>{playlistOutput}</p>}
                 {!coverPending && cover && <button className="bg-black text-[2.118vw] px-[3.125vw] p-[0.313vw] rounded-lg text-white" onClick={btnClicked}>Get Recommendations</button>}
                 {recPending && <div>Loading...</div> }
                 {!recPending && recommendations.data && <h1 className="text-[30px]">List of Recommended Songs</h1>}
-                {!recPending && recommendations.data && recommendations.data.tracks.map((rec) => (
-                  <div className="flex items-center mb-5 gap-2" key={idx++}>
-                    <img src={rec.album.images[0].url} className="w-[100px] h-[100px]" />
-                    <p className="">{rec.name} by {rec.artists[0].name}</p>
-                  </div>
-                ))}
+                <div className="grid grid-flow-row grid-cols-2">
+                  {!recPending && recommendations.data && recommendations.data.tracks.map((rec) => (
+                    <div className="flex items-center mb-5 gap-2" key={idx++}>
+                      <img src={rec.album.images[0].url} className="w-[100px] h-[100px]" />
+                      <p className="">{rec.name} by {rec.artists[0].name}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
               {/* <div className="">
                 <button className="bg-black text-white">Download</button>
