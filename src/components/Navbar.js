@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react'
-import {FiMenu} from 'react-icons/fi'
 import logo from '../img/logo.png'
 import {Link} from 'react-router-dom'
 import {Credentials} from "../Credentials"
