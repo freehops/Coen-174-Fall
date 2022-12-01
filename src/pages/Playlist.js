@@ -18,6 +18,7 @@ const Playlist = () => {
     const [playlistOutput, setPlaylistOutput] = useState("")
     const [artist, setArtist] = useState("")
     const [user, setUser] = useState("")
+    const [seed, setSeed] = useState([])
 
     useEffect(() => {
       const hash = window.location.hash
@@ -125,6 +126,20 @@ const Playlist = () => {
         setArtist(artistResponse)
       });
 
+      axios('https://api.spotify.com/v1/recommendations/available-genre-seeds', {
+        method: 'GET',
+        headers: {
+          'Authorization' : 'Bearer ' + token          
+        }
+      })
+      .then(seedResponse => {
+        console.log(seedResponse)
+        setSeed(seedResponse)
+      });
+
+
+      
+
       
       if(artist.data){
         seedGenres += artist.data.genres[0]
@@ -132,8 +147,6 @@ const Playlist = () => {
           if(artist.data.genres[i] !== undefined)
             seedGenres += ", " + artist.data.genres[i] //need to make these random
         }
-      }
-
         axios('https://api.spotify.com/v1/recommendations', {
           method: 'GET',
           headers: {
@@ -150,6 +163,8 @@ const Playlist = () => {
           setRecommendations(recResponse)
           setRecPending(false)
         });
+      }
+        
     }
 
     const download = e => {
