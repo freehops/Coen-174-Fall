@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar'
 import Dropdown from '../components/Dropdown';
 import { Credentials } from '../Credentials';
 import axios from 'axios';
+import newPlaylist from '../img/newPlaylist.png'
 
 const Playlist = () => {
 
@@ -15,6 +16,7 @@ const Playlist = () => {
     const [recommendations, setRecommendations] = useState([])
     const [coverPending, setCoverPending] = useState(false)
     const [recPending, setRecPending] = useState(false)
+    const [recLoaded, setRecLoaded] = useState(false)
     const [playlistOutput, setPlaylistOutput] = useState("")
     const [artist, setArtist] = useState("")
     const [user, setUser] = useState("")
@@ -56,6 +58,7 @@ const Playlist = () => {
       e.preventDefault();
       setCoverPending(true)
       setRecommendations("")
+      setRecLoaded(false)
 
       axios('https://api.spotify.com/v1/me', {
         method: 'GET',
@@ -162,6 +165,7 @@ const Playlist = () => {
         .then(recResponse => {
           setRecommendations(recResponse)
           setRecPending(false)
+          setRecLoaded(true)
         });
       }
         
@@ -202,30 +206,55 @@ const Playlist = () => {
                 <button className="bg-white text-[2.118vw] px-[3.125vw] p-[0.313vw] rounded-lg text-black" type={"submit"}>Submit</button>
               </form>
             </div>
-            <div className="max-w-[80%] mx-auto my-5 flex">
+            <div className="max-w-[80%] mx-auto my-5 flex justify-center bg-white">
               <div className="">
-                {coverPending && <div>Loading...</div> }
-                {!coverPending && cover && <img src={cover.data[0].url} alt="Playlist Cover" />}
-                {!coverPending && cover && <p>{playlistOutput}</p>}
-                <div className="flex gap-x-5">
-                  {!coverPending && cover && <button className="bg-black text-[2.118vw] px-[3.125vw] p-[0.313vw] rounded-lg text-white" onClick={btnClicked}>Get Recommendations</button>}
-                  {!recPending && recommendations.data && <button className="bg-green-500 text-[2.118vw] px-[3.125vw] p-[0.313vw] rounded-lg text-white" onClick={download}>Download Playlist</button>}
+                <div className="flex justify-center"> 
+                  <div>
+                    {coverPending && <div>Loading...</div> }
+                    {!coverPending && cover && <img src={cover.data[0].url} alt="Playlist Cover" />}
+                    {!coverPending && cover && <p className="text-center">{playlistOutput}</p>}
+                  </div>
                 </div>
-                {recPending && <div>Loading...</div> }
-                {!recPending && recommendations.data && <h1 className="text-[30px]">List of Recommended Songs</h1>}
-                <div className="grid grid-flow-row grid-cols-2">
-                  {!recPending && recommendations.data && recommendations.data.tracks.map((rec) => (
-                    <div className="flex items-center mb-5 gap-2" key={idx++}>
-                      {rec.album.images && <img src={rec.album.images[0].url} alt="Playlist Cover" className="w-[100px] h-[100px]" />}
-                      <p className="">{rec.name} by {rec.artists[0].name}</p>
-                    </div>
-                  ))}
+                {!coverPending && cover &&
+                <div className="flex justify-center">
+                  <div className="grid grid-flow-row grid-cols-2 gap-x-96">
+                    <p>Your Top 5 Genres</p>
+                    <p>Your Top 5 Artists</p>
+                  </div>
+                </div>}
+                <div className="flex justify-center">
+                  {!coverPending && cover && <button className="bg-black text-[2.118vw] px-[3.125vw] p-[0.313vw] rounded-lg text-white" onClick={btnClicked}>Get Recommendations</button>}
+                </div>
+                <div className="flex justify-center">
+                  {recPending && <div>Loading...</div> }
                 </div>
               </div>
-              {/* <div className="">
-                <button className="bg-black text-white">Download</button>
-              </div> */}
             </div>
+            {recLoaded &&
+            <div className="px-[10%] py-5 flex justify-center bg-gray-300">
+              <div>
+                <div className="flex justify-center">
+                    {!recPending && recommendations.data && <h1 className="text-[30px]">Here Are Your Recommendations!</h1>}
+                  </div>
+                  <div className="flex justify-center">
+                    <div className="grid grid-flow-row grid-cols-2 gap-x-10">
+                      {!recPending && recommendations.data && recommendations.data.tracks.map((rec) => (
+                        <div className="flex items-center mb-5 gap-2" key={idx++}>
+                          {rec.album.images && <img src={rec.album.images[0].url} alt="Playlist Cover" className="w-[100px] h-[100px]" />}
+                          <p className="">{rec.name} by {rec.artists[0].name}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="flex items-center">
+                    {!recPending && recommendations.data && <img src={newPlaylist} alt="Spotify Pact Playlist" className="w-[250px] h-[300px]" />}
+                    <div>
+                      <p>Here's Your Generated Playlist</p>
+                      {!recPending && recommendations.data && <button className="bg-black text-[2.118vw] px-[3.125vw] p-[0.313vw] rounded-lg text-white" onClick={download}>Listen Now!</button>}
+                    </div>
+                  </div>
+              </div>
+            </div>}
       </div>
     )
 }
