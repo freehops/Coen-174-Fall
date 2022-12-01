@@ -58,9 +58,9 @@ const Home = () => {
                         <img className="w-[27.5vw] h-[16.25vw]" src={boygirl} alt="boy and girl"/>
                         <img className="w-[27.5vw] h-[16.25vw]" src={phone} alt="phone"/>
                         <img className="w-[27.5vw] h-[16.25vw]" src={manwoman} alt="man and woman"/>
-                        <p className="text-[1.875vw]">Our app generates a playlist of music recommendations based on artists and genres you listen to the most, and links you to other Spotify profiles who listen to similar music to you.</p>
-                        <p className="text-[1.875vw]">Just log on to Spotify and select your playlist, and we'll hook you up with new connections and similar music.</p>
-                        <p className="text-[1.875vw]">Using the Spotify Pact, you can listen to more of the music you love, find new favorites with ease, and match yourself with other users, all just with a few clicks.</p>
+                        <p className="text-[1.875vw]">Our app generates a playlist of music recommendations based on artists and genres you listen to the most.</p>
+                        <p className="text-[1.875vw]">Just log on to Spotify, submit your playlist, and we’ll hook you up with new connections and similar music.</p>
+                        <p className="text-[1.875vw]">You can listen to more of the music you love and find new favorites with ease, all with just a few clicks.</p>
                 </div>
             </div>
             <div className="m-[3.906vw]">
