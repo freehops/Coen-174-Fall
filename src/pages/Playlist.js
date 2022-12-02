@@ -164,9 +164,6 @@ const Playlist = () => {
         seedTracks[i] = tracks.data.items[idx].track.id;
       }
     }
-
-    let allGenres = Array(25).fill("");
-    let genreCount = 0;
     
     let numArtist = [
 
@@ -247,30 +244,49 @@ const Playlist = () => {
         if (artist1.data.genres[i] !== undefined)
           seedGenres += ", " + artist1.data.genres[i] //need to make these random
       }
+
+      for (let i=0; i<artist2.data.genres.length; i++) {
+        if (artist2.data.genres[i] !== undefined)
+          seedGenres += ", " + artist2.data.genres[i]
+      }
+      for (let i=0; i<artist3.data.genres.length; i++) {
+        if (artist3.data.genres[i] !== undefined)
+          seedGenres += ", " + artist3.data.genres[i]
+      }
+      for (let i=0; i<artist4.data.genres.length; i++) {
+        if (artist4.data.genres[i] !== undefined)
+          seedGenres += ", " + artist4.data.genres[i]
+      }
+      for (let i=0; i<artist5.data.genres.length; i++) {
+        if (artist5.data.genres[i] !== undefined)
+          seedGenres += ", " + artist5.data.genres[i]
+      }
       
-      if(artist1.data.genres.length < 5){
+      // if(artist1.data.genres.length < 5){
     
-        for (let i = 1; i < artist2.data.genres.length ; i++) {
-          if (artist2.data.genres[i] !== undefined)
-            seedGenres += ", " + artist2.data.genres[i] //need to make these random
-        }
-      }
+      //   for (let i = 1; i < artist2.data.genres.length ; i++) {
+      //     if (artist2.data.genres[i] !== undefined)
+      //       seedGenres += ", " + artist2.data.genres[i] //need to make these random
+      //   }
+      // }
 
-      if(artist1.data.genres.length + artist2.data.genres.length < 5){
+      // if(artist1.data.genres.length + artist2.data.genres.length < 5){
     
-        for (let i = 1; i < artist2.data.genres.length ; i++) {
-          if (artist2.data.genres[i] !== undefined)
-            seedGenres += ", " + artist2.data.genres[i] //need to make these random
-        }
-      }
+      //   for (let i = 1; i < artist2.data.genres.length ; i++) {
+      //     if (artist2.data.genres[i] !== undefined)
+      //       seedGenres += ", " + artist2.data.genres[i] //need to make these random
+      //   }
+      // }
 
-
-
+      // console.log and post artist names to website
       console.log(artist1.data.name)
       console.log(artist2.data.name)
       console.log(artist3.data.name)
       console.log(artist4.data.name)
       console.log(artist5.data.name)
+      const artistText = document.getElementById('topArtists');
+      artistText.innerHTML = (`<p style="text-decoration: underline; font-weight: bold">Your Top 5 Artists</p><p>${artist1.data.name}<br>${artist2.data.name}<br>${artist3.data.name}<br>${artist4.data.name}<br>${artist5.data.name}</p>`);
+
       console.log("seedGenres =", seedGenres); 
 
     let flag = 0
@@ -293,7 +309,10 @@ const Playlist = () => {
     }
 
     
-    console.log(trueGenre)
+    console.log(trueGenre);
+    const foundGenres = trueGenre.split(",");
+    const genreText = document.getElementById('topGenres');
+    genreText.innerHTML = (`<p style="text-decoration: underline; font-weight: bold">Your Top 5 Genres</p><p>${foundGenres[0]}<br>${foundGenres[1]}<br>${foundGenres[2]}<br>${foundGenres[3]}<br>${foundGenres[4]}</p>`);
 
     // fetch recommendations
     axios('https://api.spotify.com/v1/recommendations', {
@@ -362,8 +381,8 @@ const Playlist = () => {
           {!coverPending && cover &&
             <div className="flex justify-center">
               <div className="grid grid-flow-row grid-cols-2 gap-x-96">
-                <p>Your Top 5 Genres</p>
-                <p>Your Top 5 Artists</p>
+                <p id="topGenres">Your Top 5 Genres</p>
+                <p id="topArtists">Your Top 5 Artists</p>
               </div>
             </div>}
           <div className="flex justify-center">
