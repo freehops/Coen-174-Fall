@@ -18,7 +18,11 @@ const Playlist = () => {
   const [recPending, setRecPending] = useState(false)
   const [recLoaded, setRecLoaded] = useState(false)
   const [playlistOutput, setPlaylistOutput] = useState("")
-  const [artist, setArtist] = useState("")
+  const [artist1, setArtist1] = useState("")
+  const [artist2, setArtist2] = useState("")
+  const [artist3, setArtist3] = useState("")
+  const [artist4, setArtist4] = useState("")
+  const [artist5, setArtist5] = useState("")
   const [user, setUser] = useState("")
   const [seed, setSeed] = useState([])
 
@@ -163,36 +167,101 @@ const Playlist = () => {
     let allGenres = Array(25).fill("");
     let genreCount = 0;
     
-    axios(`https://api.spotify.com/v1/artists/${seedArtists[0]}`, {
+    let numArtist = [
+
+    `https://api.spotify.com/v1/artists/${seedArtists[0]}`,
+    `https://api.spotify.com/v1/artists/${seedArtists[1]}`,
+    `https://api.spotify.com/v1/artists/${seedArtists[2]}`,
+    `https://api.spotify.com/v1/artists/${seedArtists[3]}`,
+    `https://api.spotify.com/v1/artists/${seedArtists[4]}`
+    ]
+
+    let a1 = axios.get(numArtist[0], {
       method: 'GET',
       headers: {
         'Authorization': 'Bearer ' + token
       }
-    })
-      .then(artistResponse => {
-        setArtist(artistResponse)
-      });
-
-    axios('https://api.spotify.com/v1/recommendations/available-genre-seeds', {
+      })
+    let a2 = axios.get(numArtist[1], {
       method: 'GET',
       headers: {
         'Authorization': 'Bearer ' + token
       }
-    })
-      .then(seedResponse => {
-        console.log(seedResponse.status)
-        setSeed(seedResponse)
-      });
+      })
 
-    if (artist.data) {
-      console.log("Artist found:", artist.data.name)
-      seedGenres += artist.data.genres[0]
-      for (let i = 1; i < 5; i++) {
-        if (artist.data.genres[i] !== undefined)
-          seedGenres += ", " + artist.data.genres[i] //need to make these random
+    let a3 = axios.get(numArtist[2], {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + token
       }
-      console.log("seedGenres =", seedGenres);
-    }
+      })
+    
+    let a4 = axios.get(numArtist[3], {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
+      })
+
+    let a5 = axios.get(numArtist[4], {
+          method: 'GET',
+          headers: {
+            'Authorization': 'Bearer ' + token
+          }
+          })    
+
+
+    axios.all([a1,a2,a3,a4,a5]) . then(
+      axios.spread((...allData) => {
+        let artista1 = allData[0]
+        let artista2 = allData[1]
+        let artista3 = allData[2]
+        let artista4 = allData[3]
+        let artista5 = allData[4]
+
+        //console.log(artista1)
+        //console.log(artista2)
+        //console.log(artista3)
+        //console.log(artista4)
+        //console.log(artista5)
+
+        setArtist1(artista1)
+        setArtist2(artista2)
+        setArtist3(artista3)
+        setArtist4(artista4)
+        setArtist5(artista5)
+
+      })
+    )
+
+    console.log(artist1)
+    console.log(artist2)
+    console.log(artist3)
+    console.log(artist4)
+    console.log(artist5)
+
+       
+    seedGenres += artist1.data.genres[0]
+      for (let i = 1; i < artist1.data.genres.length ; i++) {
+        if (artist1.data.genres[i] !== undefined)
+          seedGenres += ", " + artist1.data.genres[i] //need to make these random
+      }
+      
+      if(artist1.data.genres.length < 5){
+    
+        for (let i = 1; i < artist2.data.genres.length ; i++) {
+          if (artist2.data.genres[i] !== undefined)
+            seedGenres += ", " + artist2.data.genres[i] //need to make these random
+        }
+      }
+
+      console.log(artist1.data.name)
+      console.log(artist2.data.name)
+      console.log(artist3.data.name)
+      console.log(artist4.data.name)
+      console.log(artist5.data.name)
+      console.log("seedGenres =", seedGenres); 
+    
 
     // fetch recommendations
     axios('https://api.spotify.com/v1/recommendations', {
