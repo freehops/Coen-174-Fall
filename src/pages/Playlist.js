@@ -155,7 +155,7 @@ const Playlist = () => {
 
       // randomly selecting 5 seedTracks
       for (let i = 0; i < 5; i++) {
-        let idx = Math.floor(Math.random() * 80)
+        let idx = Math.floor(Math.random() * playlistLength);
         seedTracks[i] = tracks.data.items[idx].track.id;
       }
     }
