@@ -4,6 +4,7 @@ import Dropdown from '../components/Dropdown';
 import { Credentials } from '../Credentials';
 import axios from 'axios';
 import newPlaylist from '../img/newPlaylist.png'
+import allGenre from '../genres'
 
 const Playlist = () => {
 
@@ -255,13 +256,44 @@ const Playlist = () => {
         }
       }
 
+      if(artist1.data.genres.length + artist2.data.genres.length < 5){
+    
+        for (let i = 1; i < artist2.data.genres.length ; i++) {
+          if (artist2.data.genres[i] !== undefined)
+            seedGenres += ", " + artist2.data.genres[i] //need to make these random
+        }
+      }
+
+
+
       console.log(artist1.data.name)
       console.log(artist2.data.name)
       console.log(artist3.data.name)
       console.log(artist4.data.name)
       console.log(artist5.data.name)
       console.log("seedGenres =", seedGenres); 
+
+    let flag = 0
+    let trueGenre = ""
+    let sum = 0
+
+    for(let i = 0; i < 125; i++){
+      if(seedGenres.includes(allGenre[i]) && sum < 5){
+      //console.log("=" + allGenre[i])
+        if(flag == 0){
+          trueGenre += allGenre[i]
+          flag = 1
+          sum++
+        } 
+          else {
+            trueGenre += "," + allGenre[i]
+            sum++
+        }
+      }
+    }
+
     
+    console.log(trueGenre)
 
     // fetch recommendations
     axios('https://api.spotify.com/v1/recommendations', {
@@ -272,7 +304,7 @@ const Playlist = () => {
       params: {
         seed_artists: seedArtists, //array of up to 5 seed artist ids
         // seed_genres: "hip-hop, pop", //string of up to 5 seed genre names. still need to figure out getting playlist genres
-        seed_genres: "pop",
+        seed_genres: trueGenre,
         seed_tracks: seedTracks, //array of up to 5 seed track ids
       }
     })
